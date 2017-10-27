@@ -3,7 +3,7 @@
     <div>
       <p>
         <q-item-side avatar="statics/guy-avatar.png" >
-        ¡Hola Pepsilla!.
+        ¡Hola <span>{{userName}}</span>!.
         </q-item-side>
       </p>
     </div>
@@ -135,9 +135,17 @@ export default {
     QToolbar,
     'app-index-unit': IndexMenu
   },
+  data: function () {
+    return {
+      userName: 'noName'
+    }
+  },
   methods: {
     launch (url) {
       openURL(url)
+    },
+    getUserName: function () {
+      return this.userName
     }
   }
 }
