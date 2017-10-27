@@ -24,121 +24,9 @@
         instead of <q-item> for
         internal vue-router navigation
       -->
-      <q-list no-border link inset-delimiter>
-        <q-list-header>Índice de la unidad didáctica</q-list-header>
-        <q-item >          
-          <q-item-side icon="fingerprint" />
-          <q-item-main label="Título de la escena" sublabel="Breve descripción de la acción a desarrollar" />
-        </q-item>
-        <q-item >          
-          <q-item-side icon="fingerprint" />
-          <q-item-main label="Título de la escena" sublabel="Breve descripción de la acción a desarrollar" />
-        </q-item>
-        <q-item >          
-          <q-item-side icon="fingerprint" />
-          <q-item-main label="Título de la escena" sublabel="Breve descripción de la acción a desarrollar" />
-        </q-item>
-      </q-list>
-      <q-list no-border link inset-delimiter>
-        <q-list-header>Menú de la unidad didáctica</q-list-header>
-        <q-item @click="$refs.locutionModal.open()">
-          <q-item-side icon="speaker notes" />
-          <q-item-main label="Locución" sublabel="Mostrar la transcripción del audio incorporado en la escena de la unidad didáctica" />
-        </q-item>
-        <q-item @click="$refs.glossaryModal.open()">
-          <q-item-side icon="find in page" />
-          <q-item-main label="Glosario" sublabel="Glosario de la unidad didáctica" />
-        </q-item>
-        <q-item  @click="$refs.bibliographyModal.open()">
-          <q-item-side icon="library books" />
-          <q-item-main label="Bibliografía" sublabel="Bibliografía relacionada con la unidad didáctica" />
-        </q-item>
-        <q-item @click= "launch('/statics/Test.pdf')">
-          <q-item-side icon="book" />
-          <q-item-main label="e-book" sublabel="Libro electrónico de la unidad didáctica en formato pdf" />
-        </q-item>
-        
-      </q-list>
+      <app-unit-menu></app-unit-menu>
 
-      <q-modal 
-        ref="locutionModal"
-        @open="notify('open locution')"
-        @close="notify('close locution')"
-        :content-css= "{minWidth:'80vw', minHeight:'80vh'}"
-      >
-        <q-modal-layout>
-          <q-toolbar slot="header">
-            <q-icon name="speaker notes e"></q-icon>
-            <q-toolbar-tittle>Locución</q-toolbar-tittle>
-          </q-toolbar>
-
-          <p>Módulo vista de la locución del la unidad didáctica</p>
-          <q-btn
-              flat
-              @click="$refs.locutionModal.close()"
-            >
-              Cerrar
-              <q-icon name="power settins new"></q-icon>
-          </q-btn>
-          
-        </q-modal-layout>
-      </q-modal>
-
-      <q-modal 
-        ref="glossaryModal" 
-        @open="notify('open glossary')"
-        @close="notify('close glosary')"
-        :content-css= "{minWidth:'80vw', minHeight:'80vh'}"
-      >
-        <q-modal-layout>
-          <q-toolbar slot="header">
-            <q-icon name="find in page e"></q-icon>
-            <q-toolbar-tittle>Glosario</q-toolbar-tittle>
-          </q-toolbar>
-
-          <p>Módulo vista del glosario del la unidad didáctica</p>
-          <q-btn
-              flat
-              @click="$refs.glossaryModal.close()"
-            >
-              Cerrar
-              <q-icon name="power settins new"></q-icon>
-          </q-btn>
-          
-        </q-modal-layout>
-      </q-modal>
-
-      <q-modal 
-        ref="bibliographyModal"
-        @open="notify('open library')"
-        @close="notify('close library')"
-        :content-css= "{minWidth:'80vw', minHeight:'80vh'}"
-      >
-        <q-modal-layout>
-          <q-toolbar slot="header">
-            <q-icon name="library books e"></q-icon>
-            <q-toolbar-tittle>Bibliografía</q-toolbar-tittle>
-          </q-toolbar> 
-
-          <p>Módulo vista de la Bibliografía de la unidad didáctica</p>
-          <q-btn
-              flat
-              @click="$refs.bibliographyModal.close()"
-            >
-              Cerrar
-              <q-icon name="power settins new"></q-icon>
-          </q-btn>
-          
-        </q-modal-layout>
-      </q-modal>
       
-
-      <q-list no-border link inset-delimiter>
-        <q-item @click= "closeNavigatorWindow">
-          <q-item-side icon="power settings new" />
-          <q-item-main label="Cerrar" sublabel="Cerrar la unidad didáctica" />
-        </q-item>
-      </q-list>
     </div>
 
     <!--
@@ -155,6 +43,7 @@
 </template>
 
 <script>
+import LeftMenu from './menuModules/Unitmenu.vue'
 import {
   dom,
   event,
@@ -206,7 +95,8 @@ export default {
     QItemSide,
     QItemMain,
     QModal,
-    QModalLayout
+    QModalLayout,
+    'app-unit-menu': LeftMenu
   },
   data () {
     return {
