@@ -18,7 +18,7 @@
       </q-toolbar-title>
     </q-toolbar>
 
-    <div slot="left">
+    <div v-if= "isApi" slot="left">
       <!--
         Use <q-side-link> component
         instead of <q-item> for
@@ -34,15 +34,28 @@
       <router-view /> component
       if using subRoutes
     -->
-    <div class="layout-padding logo-container non-selectable no-pointer-events">
-      <div class="logo" :style="position">
-        <img src="~assets/quasar-logo-full.svg">
+    <div v-if="isApi">
+      <div>
+        <q-btn
+          flat
+          @click="openUnit()"
+        > 
+          <q-icon name="menu" />
+        </q-btn>
+         Abir unidad didáctica, status={{status}}, name={{userName}}
+      </div>
+    </div>
+    <div v-else>
+      <span>SCORM&&LMS = {{isApi}}</span>
+      <div>
+        <span>No se ha encontrado soporte SCORM en el LMS</span>
       </div>
     </div>
   </q-layout>
 </template>
 
 <script>
+// import apiLMS from 'scorm-api-wrapper'
 import LeftMenu from './menuModules/Unitmenu.vue'
 import {
   dom,
@@ -63,6 +76,17 @@ import {
   QModalLayout
 } from 'quasar'
 
+var saw = require('scorm-api-wrapper')
+
+saw.configure()
+function isApi () {
+  if (saw.API) {
+    // Change to true for build
+    return false
+  }
+  // Change to false for build
+  return true
+}
 const
   { viewport } = dom,
   { position } = event,
@@ -105,7 +129,10 @@ export default {
       moveX: 0,
       moveY: 0,
       rotateY: 0,
-      rotateX: 0
+      rotateX: 0,
+      isApi: isApi(),
+      status: 'NoEnt',
+      userName: 'martir'
     }
   },
   computed: {
@@ -123,6 +150,22 @@ export default {
   methods: {
     launch (url) {
       openURL(url)
+    },
+    openUnit () {
+      console.log('Intento de apertura de la unidad didáctica')
+      if (saw.API) {
+        saw.lmsInitialize()
+      }
+      if (saw.LMSInitialized) {
+        saw.setScormValue('cmi.core.lesson_status', 'incomplete')
+        saw.lmsCommit()
+        this.userName = saw.getScormValue('cmi.core.student_name')
+        this.status = saw.getScormValue('cmi.core.lesson_status')
+      }
+      else {
+        this.status = 'NO_API,NO_SCORM'
+        this.userName = 'Developer'
+      }
     },
     move (evt) {
       const

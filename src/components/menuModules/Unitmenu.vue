@@ -35,7 +35,7 @@
         </div>
     </q-collapsible>
     <q-list no-border link inset-delimiter>
-        <q-item>
+        <q-item @click= "closeUnit()">
             <q-item-side icon="power settings new" />
             <q-item-main label="Cerrar" sublabel="Cerrar la unidad didáctica" />
         </q-item>
@@ -146,6 +146,9 @@ export default {
     },
     getUserName: function () {
       return this.userName
+    },
+    closeUnit () {
+      top.close()
     }
   }
 }
