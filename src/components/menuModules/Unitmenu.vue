@@ -15,10 +15,10 @@
     <q-collapsible group="indexunit" icon="perm_identity" label="Menú de la unidad didáctica">
         <div>
           <q-list no-border link inset-delimiter>
-            <q-item @click="$refs.locutionModal.open()">
+            <!-- q-item @click="$refs.locutionModal.open()">
               <q-item-side icon="speaker notes" />
               <q-item-main label="Locución" sublabel="Mostrar la transcripción del audio incorporado en la escena de la unidad didáctica" />
-            </q-item>
+            </q-item -->
             <q-item @click="$refs.glossaryModal.open()">
               <q-item-side icon="find in page" />
               <q-item-main label="Glosario" sublabel="Glosario de la unidad didáctica" />
@@ -34,12 +34,12 @@
           </q-list>
         </div>
     </q-collapsible>
-    <q-list no-border link inset-delimiter>
+    <!-- q-list no-border link inset-delimiter>
         <q-item @click= "closeUnit()">
             <q-item-side icon="power settings new" />
             <q-item-main label="Cerrar" sublabel="Cerrar la unidad didáctica" />
         </q-item>
-    </q-list>
+    </q-list -->
 
     <!-- Modal dialogs -->
     <div>
@@ -68,9 +68,11 @@
             Glosario
           </q-toolbar>
           <p>Módulo vista del glosario del la unidad didáctica</p>
+          <app-glossary-module/>
           <q-btn flat  @click="$refs.glossaryModal.close()">Cerrar</q-btn>
         </q-modal-layout>
       </q-modal>
+
 
       <q-modal 
         ref="bibliographyModal"
@@ -92,6 +94,7 @@
 </template>
 <script>
 import IndexMenu from './Indexunit.vue'
+import GlossaryModule from './glossary.vue'
 import {
   openURL,
   QCard,
@@ -133,7 +136,8 @@ export default {
     QBtn,
     QChip,
     QToolbar,
-    'app-index-unit': IndexMenu
+    'app-index-unit': IndexMenu,
+    'app-glossary-module': GlossaryModule
   },
   data: function () {
     return {

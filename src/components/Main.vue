@@ -4,19 +4,28 @@
     view="lHh Lpr fff"
     :left-class="{'bg-grey-2': true}"
   >
-    <q-toolbar slot="header" class="glossy">
-      <q-btn
-        flat
-        @click="$refs.layout.toggleLeft()"
-      >
-        <q-icon name="menu" />
-      </q-btn>
+    <div>
+      <q-toolbar slot="header" class="glossy">
+        <q-btn
+          flat
+          @click="$refs.layout.toggleLeft()"
+        >
+          <q-icon name="menu" />
+        </q-btn>
 
-      <q-toolbar-title>
-        Título de la unidad didáctica
-        <div slot="subtitle">Escena de la unidad didáctica. -Running on Quasar v{{$q.version}}-</div>
-      </q-toolbar-title>
-    </q-toolbar>
+        <q-toolbar-title>
+          Título de la unidad didáctica -Running on Quasar v{{$q.version}}-<br>
+          Que puede albergar algo más que un breve titular
+          <div slot="subtitle">
+            Escena de la unidad didáctica.<br>
+            Que también puede albergar algo más que un breve titular de la escena<br>
+            Para otras extensiones, considerar modificar la composición de la escena 
+          </div>
+        </q-toolbar-title>
+      </q-toolbar>
+      <app-floating-menu/>
+    </div>
+    
 
     <div v-if= "isApi" slot="left">
       <!--
@@ -34,7 +43,7 @@
       <router-view /> component
       if using subRoutes
     -->
-    <div v-if="isApi">
+    <!--div v-if="isApi">
       <div>
         <q-btn
           flat
@@ -50,13 +59,16 @@
       <div>
         <span>No se ha encontrado soporte SCORM en el LMS</span>
       </div>
-    </div>
+    </div -->
+    <app-content-menu></app-content-menu>
   </q-layout>
 </template>
 
 <script>
 // import apiLMS from 'scorm-api-wrapper'
 import LeftMenu from './menuModules/Unitmenu.vue'
+import ContentMenu from './contentModules/testForm/testMainForm.vue'
+import FloatingMenu from './menuModules/floatingActionButton.vue'
 import {
   dom,
   event,
@@ -120,7 +132,9 @@ export default {
     QItemMain,
     QModal,
     QModalLayout,
-    'app-unit-menu': LeftMenu
+    'app-unit-menu': LeftMenu,
+    'app-content-menu': ContentMenu,
+    'app-floating-menu': FloatingMenu
   },
   data () {
     return {
@@ -251,9 +265,6 @@ export default {
   height 242px
   perspective 800px
   position absolute
-  top 50%
-  left 50%
-  transform translateX(-50%) translateY(-50%)
 .logo
   position absolute
   transform-style preserve-3d
